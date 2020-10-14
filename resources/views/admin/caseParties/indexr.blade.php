@@ -33,9 +33,11 @@
                         <th width="10">
 
                         </th>
+<!--
                         <th>
                             {{ trans('cruds.caseParty.fields.id') }}
                         </th>
+-->
                         {{--<th>
                             {{ trans('cruds.caseParty.fields.case') }}
                         </th>--}}
@@ -74,9 +76,11 @@
                             <td>
 
                             </td>
+<!--
                             <td>
                                 {{ $caseParty->id ?? '' }}
                             </td>
+-->
                             {{--<td>
                                 {{ $caseParty->case->case_ref_code ?? '' }}
                             </td>--}}

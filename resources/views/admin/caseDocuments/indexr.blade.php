@@ -23,12 +23,14 @@
                         <th width="10">
 
                         </th>
+<!--
                         <th>
                             {{ trans('cruds.caseDocument.fields.id') }}
                         </th>
                         <th>
                             {{ trans('cruds.caseDocument.fields.case') }}
                         </th>
+-->
                         <th>
                             {{ trans('cruds.caseDocument.fields.doc_type') }}
                         </th>
@@ -58,12 +60,14 @@
                             <td>
 
                             </td>
+<!--
                             <td>
                                 {{ $caseDocument->id ?? '' }}
                             </td>
                             <td>
                                 {{ $caseDocument->case->case_ref_code ?? '' }}
                             </td>
+-->
                             <td>
                                 {{ $caseDocument->doc_type->doc_type_desc_a ?? '' }}
                             </td>

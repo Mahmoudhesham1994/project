@@ -23,12 +23,14 @@
                         <th width="10">
 
                         </th>
+<!--
                         <th>
                             {{ trans('cruds.caseCourtDecision.fields.id') }}
                         </th>
                         <th>
                             {{ trans('cruds.caseCourtDecision.fields.case') }}
                         </th>
+-->
                         <th>
                             {{ trans('cruds.caseCourtDecision.fields.court_name') }}
                         </th>
@@ -55,12 +57,14 @@
                             <td>
 
                             </td>
+<!--
                             <td>
                                 {{ $caseCourtDecision->id ?? '' }}
                             </td>
                             <td>
                                 {{ $caseCourtDecision->case->case_ref_code ?? '' }}
                             </td>
+-->
                             <td>
                                 {{ $caseCourtDecision->court_name ?? '' }}
                             </td>

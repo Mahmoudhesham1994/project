@@ -67,6 +67,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.caseDocument.fields.doc_note_helper') }}</span>
             </div>
+<!--
             <div class="form-group">
                 <label for="doc_file_name">{{ trans('cruds.caseDocument.fields.doc_file_name') }}</label>
                 <div class="needsclick dropzone {{ $errors->has('doc_file_name') ? 'is-invalid' : '' }}" id="doc_file_name-dropzone">
@@ -76,6 +77,33 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.caseDocument.fields.doc_file_name_helper') }}</span>
             </div>
+-->
+            
+             <div class="form-group">
+                <label for="message_doc">{{ trans('cruds.caseDocument.fields.doc_file_name') }}</label>
+          <div class="input-group control-group increment" >
+          <input type="file" name="message_doc[]" class="form-control">
+<!--
+          <div class="input-group-btn"> 
+            <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
+          </div>
+-->
+        </div>
+        <div class="clone hide">
+          <div class="control-group input-group" style="margin-top:10px">
+            <input type="file" name="message_doc[]" class="form-control">
+            <div class="input-group-btn"> 
+              <!--<button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>-->
+              <button class="btn btn-danger" type="button"><i class=""></i> Remove</button>
+            </div>
+          </div>
+        </div>           
+             </div>
+            
+            
+            
+            
+            
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
@@ -90,6 +118,42 @@
 @endsection
 
 @section('scripts')
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+
+
+<!-- Include Date Range Picker -->
+ <script>
+      	$(document).ready(function(){
+		var date_input=$('input[name="doc_date"]'); //our date input has the name "date"
+		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+		date_input.datepicker({
+			format: 'dd/mm/yyyy',
+			container: container,
+			todayHighlight: true,
+			autoclose: true,
+		})
+	})
+
+     
+     
+     
+  $(document).ready(function() {
+ 
+      $(".btn-success").click(function(){ 
+          var html = $(".clone").html();
+          $(".increment").after(html);
+      });
+ 
+      $("body").on("click",".btn-danger",function(){ 
+          $(this).parents(".control-group").remove();
+      });
+ 
+    });
+    </script>
 <script>
     Dropzone.options.docFileNameDropzone = {
     url: '{{ route('admin.case-documents.storeMedia') }}',

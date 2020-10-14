@@ -54,6 +54,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Case Infos
     Route::delete('case-infos/destroy', 'CaseInfoController@massDestroy')->name('case-infos.massDestroy');
     Route::resource('case-infos', 'CaseInfoController');
+     Route::post('cases/case-infos', 'CaseInfoController@search');
+
+    
+    
      // Party Types
     Route::delete('party-types/destroy', 'PartyTypeController@massDestroy')->name('party-types.massDestroy');
     Route::resource('party-types', 'PartyTypeController');

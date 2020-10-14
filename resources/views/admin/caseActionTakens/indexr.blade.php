@@ -27,12 +27,14 @@
                         <th width="10">
 
                         </th>
+<!--
                         <th>
                             {{ trans('cruds.caseActionTaken.fields.id') }}
                         </th>
                         <th>
                             {{ trans('cruds.caseActionTaken.fields.case') }}
                         </th>
+-->
                         <th>
                             {{ trans('cruds.caseActionTaken.fields.action_type') }}
                         </th>
@@ -56,12 +58,14 @@
                             <td>
 
                             </td>
+<!--
                             <td>
                                 {{ $caseActionTaken->id ?? '' }}
                             </td>
                             <td>
                                 {{ $caseActionTaken->case->case_ref_code ?? '' }}
                             </td>
+-->
                             <td>
                                 {{ $caseActionTaken->action_type->action_type_desc ?? '' }}
                             </td>

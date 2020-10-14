@@ -14,7 +14,10 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
-
+use Illuminate\Support\Facades\Storage;
+ use App\Models\Mediaa;
+use DB;
+//use App\Models\Mediaa;
 class CaseDocumentsController extends Controller
 {
     use MediaUploadingTrait;
@@ -42,17 +45,49 @@ class CaseDocumentsController extends Controller
     public function store(StoreCaseDocumentRequest $request)
     {
         $caseDocument = CaseDocument::create($request->all());
+// Storage::disk('fileStore')->putFileAs('document', $file, $full_name);
+        
+    if (is_array($request->file('message_doc')) || is_object($request->file('message_doc'))){
 
-        if ($request->input('doc_file_name', false)) {
-            $caseDocument->addMedia(storage_path('tmp/uploads/' . $request->input('doc_file_name')))->toMediaCollection('doc_file_name');
-        }
+        foreach($request->file('message_doc') as $file)
+        {
+           $full_name = time().'.'.$file->getClientOriginalExtension();
+              
+ $file->move(public_path('uploads'), $full_name);
+    //  Storage::disk('fileStore')->putFileAs('document', $file, $full_name);        
+           // $media= new App\Models\Mediaa();   
+            $media = new Mediaa();
 
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $caseDocument->id]);
-        }
+ //print_r($media);
+            //$media->name = $num_file;
+            $media->name = $file;
+            $media->model_type ="App\CaseDocument";
+           // $media->model_id = $message->id;
+            $media->model_id = $caseDocument->id;
+            $media->collection_name = "message_doc";
+             $media->disk   = "public";
+             $media->file_name  = $full_name;
+             $media->save();
+         }}   
+//        dd($request->profile_image);
+//        
+//   if ($request->has('profile_image')) {
+//            // Get image file
+//            $image = $request->file('profile_image');
+//                $imageName = time().'.'.$request->profile_image->extension();  
+//       dd($imageName);
+//         $request->profile_image->move(public_path('uploads'), $imageName);
+//
+//            $folder = '/uploads/';
+//              $filePath = $folder . $imageName;
+//           //  $user->profile_image = $filePath;
+//        }        
+////                $fileName = time().'.'.$request->message_doc->extension();  
+////     
+////                $request->file->move(public_path('uploads'), $fileName);
 
-     //   return redirect()->route('admin.case-documents.index');
-              return redirect()->route('admin.case-infos.edit',  $request->input('case_id'))->withInput(['tab'=>'secondtab']);  
+        
+             return redirect()->route('admin.case-infos.edit',  $request->input('case_id'))->withInput(['tab'=>'secondtab']);  
 
     }
 
@@ -73,17 +108,52 @@ class CaseDocumentsController extends Controller
     {
         $caseDocument->update($request->all());
 
-        if ($request->input('doc_file_name', false)) {
-            if (!$caseDocument->doc_file_name || $request->input('doc_file_name') !== $caseDocument->doc_file_name->file_name) {
-                if ($caseDocument->doc_file_name) {
-                    $caseDocument->doc_file_name->delete();
-                }
+//        if ($request->input('doc_file_name', false)) {
+//            if (!$caseDocument->doc_file_name || $request->input('doc_file_name') !== $caseDocument->doc_file_name->file_name) {
+//                if ($caseDocument->doc_file_name) {
+//                    $caseDocument->doc_file_name->delete();
+//                }
+//
+//                $caseDocument->addMedia(storage_path('tmp/uploads/' . $request->input('doc_file_name')))->toMediaCollection('doc_file_name');
+//            }
+//        } elseif ($caseDocument->doc_file_name) {
+//            $caseDocument->doc_file_name->delete();
+//        }
+        
+       // dd($caseDocument->id);
+        
+        $media = DB::table('media')->where('model_id', $caseDocument->id)->get();
+        //dd($media);
+          foreach($media as $m)
+           {
+              $file_id =  $m->id  ;
+           }
+//         $media =   Mediaa::find(54);
+//         dd($media);
+     //   dd($file_id);
+     if (is_array($request->file('message_doc')) || is_object($request->file('message_doc'))){
 
-                $caseDocument->addMedia(storage_path('tmp/uploads/' . $request->input('doc_file_name')))->toMediaCollection('doc_file_name');
-            }
-        } elseif ($caseDocument->doc_file_name) {
-            $caseDocument->doc_file_name->delete();
-        }
+        foreach($request->file('message_doc') as $file)
+        {
+           $full_name = time().'.'.$file->getClientOriginalExtension();
+              
+ $file->move(public_path('uploads'), $full_name);
+    //  Storage::disk('fileStore')->putFileAs('document', $file, $full_name);        
+           // $media= new App\Models\Mediaa();   
+            $media =   Mediaa::find($file_id);
+       //  dd($media);
+ //print_r($media);
+            //$media->name = $num_file;
+            $media->name = $file;
+            $media->model_type ="App\CaseDocument";
+           // $media->model_id = $message->id;
+            $media->model_id = $caseDocument->id;
+            $media->collection_name = "message_doc";
+             $media->disk   = "public";
+             $media->file_name  = $full_name;
+             $media->save();
+         }}     
+        
 
         return redirect()->route('admin.case-documents.index');
     }

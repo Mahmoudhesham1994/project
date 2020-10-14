@@ -80,4 +80,11 @@ class CaseDocument extends Model implements HasMedia
     {
         return $this->getMedia('doc_file_name')->last();
     }
+    
+      public function caseDocumentMediaa()
+    {
+        return $this->hasMany(Mediaa::class, 'model_id', 'id');
+    }
+    
+    
 }

@@ -24,12 +24,14 @@
                         <th width="10">
 
                         </th>
+<!--
                         <th>
                             {{ trans('cruds.caseNote.fields.id') }}
                         </th>
                         <th>
                             {{ trans('cruds.caseNote.fields.case') }}
                         </th>
+-->
                         <th>
                             {{ trans('cruds.caseNote.fields.note_desc') }}
                         </th>
@@ -44,12 +46,14 @@
                             <td>
 
                             </td>
+<!--
                             <td>
                                 {{ $caseNote->id ?? '' }}
                             </td>
                             <td>
                                 {{ $caseNote->case->case_ref_code ?? '' }}
                             </td>
+-->
                             <td>
                                 {{ $caseNote->note_desc ?? '' }}
                             </td>

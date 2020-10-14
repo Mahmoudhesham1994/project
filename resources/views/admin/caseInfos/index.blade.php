@@ -14,6 +14,159 @@
         {{ trans('cruds.caseInfo.title_singular') }} {{ trans('global.list') }}
     </div>
 
+
+        <form method="POST" action="/admin/cases/case-infos">
+        @csrf
+     <div class="container-fluid ">
+        <div class="row">
+            <div class="col-4">
+            <div class="form-group">
+                <label   for="date_to">{{ trans('cruds.caseInfo.fields.case_date') }}</label>
+                <input dir="ltr" class="form-control date {{ $errors->has('case_date') ? 'is-invalid' : '' }}" type="text" name="date_from" id="date_from"  value=" "  >
+                @if($errors->has('date_to'))
+                    <span class="text-danger">{{ $errors->first('arc_date') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseInfo.fields.case_date_helper') }}</span>
+            </div>
+                
+            </div>
+
+            <div class="col-4">
+       
+                <div class="form-group">
+                <label   for="date_to">{{ trans('cruds.caseInfo.fields.case_date') }}</label>
+                <input    class="form-control date {{ $errors->has('case_date') ? 'is-invalid' : '' }}" type="text" name="date_to" id="date_to"  value=" "  >
+                @if($errors->has('date_to'))
+                    <span class="text-danger">{{ $errors->first('arc_date') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseInfo.fields.case_date_helper') }}</span>
+            </div>
+          
+
+            </div>
+            <div class="col-4"> 
+              <div class="form-group">
+                <label   for="case_ref_code">{{ trans('cruds.caseInfo.fields.case_ref_code') }}</label>
+                <input class="form-control {{ $errors->has('case_ref_code') ? 'is-invalid' : '' }}" type="text" name="case_ref_code" id="case_ref_code" value="{{ old('case_ref_code', '') }}"  >
+                @if($errors->has('case_ref_code'))
+                    <span class="text-danger">{{ $errors->first('case_ref_code') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseInfo.fields.case_ref_code_helper') }}</span>
+            </div>
+          
+</div>
+        </div>
+         
+         
+         
+               <div class="row">
+            <div class="col-4">
+           <div class="form-group">
+                <label for="dept_id">{{ trans('cruds.caseInfo.fields.dept') }}</label>
+                <select class="form-control select2 {{ $errors->has('dept') ? 'is-invalid' : '' }}" name="dept_id" id="dept_id">
+                    @foreach($depts as $id => $dept)
+                        <option value="{{ $id }}" {{ old('dept_id') == $id ? 'selected' : '' }}>{{ $dept }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('dept'))
+                    <span class="text-danger">{{ $errors->first('dept') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseInfo.fields.dept_helper') }}</span>
+            </div>
+                
+            </div>
+
+            <div class="col-4">
+       
+              <div class="form-group">
+                <label for="status_id">{{ trans('cruds.caseInfo.fields.status') }}</label>
+                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
+                    @foreach($statuses as $id => $status)
+                        <option value="{{ $id }}" {{ old('status_id') == $id ? 'selected' : '' }}>{{ $status }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('status'))
+                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseInfo.fields.status_helper') }}</span>
+            </div>
+          
+
+            </div>
+            <div class="col-4"> 
+                <div class="form-group">
+                <label for="staff_id">{{ trans('cruds.caseInfo.fields.staff') }}</label>
+                <select class="form-control select2 {{ $errors->has('staff') ? 'is-invalid' : '' }}" name="staff_id" id="staff_id">
+                    @foreach($staff as $id => $staff)
+                        <option value="{{ $id }}" {{ old('staff_id') == $id ? 'selected' : '' }}>{{ $staff }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('staff'))
+                    <span class="text-danger">{{ $errors->first('staff') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseInfo.fields.staff_helper') }}</span>
+            </div>
+          
+</div>
+        </div> 
+         
+         
+         
+         
+         
+    
+        <div class="row">
+            <div class="col-4"> 
+                <div class="form-group">
+                <label   for="case_type_id">{{ trans('cruds.caseInfo.fields.case_type') }}</label>
+                <select class="form-control select2 {{ $errors->has('case_type') ? 'is-invalid' : '' }}" name="case_type_id" id="case_type_id"  >
+                    @foreach($case_types as $id => $case_type)
+                        <option value="{{ $id }}" {{ old('case_type_id') == $id ? 'selected' : '' }}>{{ $case_type }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('case_type'))
+                    <span class="text-danger">{{ $errors->first('case_type') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseInfo.fields.case_type_helper') }}</span>
+            </div>
+            </div>
+  
+            <div class="col-4"> 
+             <div class="form-group">
+                <label   for="case_name">{{ trans('cruds.caseInfo.fields.case_name') }}</label>
+                <input class="form-control {{ $errors->has('case_name') ? 'is-invalid' : '' }}" type="text" name="case_name" id="case_name" value="{{ old('case_name', '') }}"  >
+                @if($errors->has('case_name'))
+                    <span class="text-danger">{{ $errors->first('case_name') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseInfo.fields.case_name_helper') }}</span>
+            </div>
+
+            </div>
+
+            
+         
+       
+             
+           
+            <div class="col-4"> 
+                <div class="form-group">
+               <label   for="date_from"> </label>
+                    <br>   
+
+                    <button class="btn-lg btn-primary" type="submit">
+                        {{ trans('global.search') }}
+                    </button>
+                </div>
+            </div>
+              </div>
+          </div>
+   
+        </form>
+    
+    
+    
+    
+    
     <div class="card-body">
         <div class="table-responsive">
             <table class=" table table-bordered table-striped table-hover datatable datatable-CaseInfo">

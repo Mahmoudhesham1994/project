@@ -76,6 +76,21 @@
                             {{ trans('cruds.caseDocument.fields.doc_file_name') }}
                         </th>
                         <td>
+                            
+                            <?php
+                            
+                            $media = DB::table('media')->where('model_id', $caseDocument->id)->get();
+                           foreach($media as $m)
+                           {
+                              $file_name =  $m->file_name  ;
+                           }
+
+                             
+                            ?>
+                            
+                             
+                            <a href="http://localhost:8000/uploads/{{$file_name}}" target="_blank">
+                                عرض الملف</a>
                             @if($caseDocument->doc_file_name)
                                 <a href="{{ $caseDocument->doc_file_name->getUrl() }}" target="_blank">
                                     {{ trans('global.view_file') }}

@@ -23,12 +23,14 @@
                         <th width="10">
 
                         </th>
+<!--
                         <th>
                             {{ trans('cruds.casePayment.fields.id') }}
                         </th>
                         <th>
                             {{ trans('cruds.casePayment.fields.case') }}
                         </th>
+-->
                         <th>
                             {{ trans('cruds.casePayment.fields.payment_date') }}
                         </th>
@@ -55,12 +57,14 @@
                             <td>
 
                             </td>
+<!--
                             <td>
                                 {{ $casePayment->id ?? '' }}
                             </td>
                             <td>
                                 {{ $casePayment->case->case_ref_code ?? '' }}
                             </td>
+-->
                             <td>
                                 {{ $casePayment->payment_date ?? '' }}
                             </td>
