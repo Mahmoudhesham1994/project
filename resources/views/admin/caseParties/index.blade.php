@@ -13,6 +13,96 @@
     <div class="card-header">
         {{ trans('cruds.caseParty.title_singular') }} {{ trans('global.list') }}
     </div>
+    
+    <form method="POST" action="/admin/cases/case-parties_search">
+        @csrf
+     <div class="container-fluid ">
+ 
+     
+        <div class="row">
+            
+               <div class="col-4"> 
+             <div class="form-group">
+                <label for="party_id_num">{{ trans('cruds.caseParty.fields.party_id_num') }}</label>
+                <input class="form-control {{ $errors->has('party_id_num') ? 'is-invalid' : '' }}" type="text" name="party_id_num" id="party_id_num" value="{{ old('party_id_num', '') }}">
+                @if($errors->has('party_id_num'))
+                    <span class="text-danger">{{ $errors->first('party_id_num') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseParty.fields.party_id_num_helper') }}</span>
+            </div>
+
+            </div>
+  
+            <div class="col-4"> 
+          <div class="form-group">
+                <label class="" for="party_name">{{ trans('cruds.caseParty.fields.party_name') }}</label>
+                <input class="form-control {{ $errors->has('party_name') ? 'is-invalid' : '' }}" type="text" name="party_name" id="party_name" value="{{ old('party_name', '') }}"  >
+                @if($errors->has('party_name'))
+                    <span class="text-danger">{{ $errors->first('party_name') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseParty.fields.party_name_helper') }}</span>
+            </div>
+
+            </div>
+
+               <div class="col-4"> 
+             <div class="form-group">
+                <label class="" for="party_type_id">{{ trans('cruds.caseParty.fields.party_type') }}</label>
+                <select class="form-control select2 {{ $errors->has('party_type') ? 'is-invalid' : '' }}" name="party_type_id" id="party_type_id"  >
+                    @foreach($party_types as $id => $party_type)
+                        <option value="{{ $id }}" {{ old('party_type_id') == $id ? 'selected' : '' }}>{{ $party_type }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('party_type'))
+                    <span class="text-danger">{{ $errors->first('party_type') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.caseParty.fields.party_type_helper') }}</span>
+            </div>
+
+            </div>
+         
+       
+             
+           
+<!--
+            <div class="col-4"> 
+                <div class="form-group">
+               <label   for="date_from"> </label>
+                    <br>   
+
+                    <button class="btn-lg btn-primary" type="submit">
+                        {{ trans('global.search') }}
+                    </button>
+                </div>
+            </div>
+-->
+              </div>
+         
+         <div class="row">
+              
+              <div class="col-4"> 
+                <div class="form-group">
+               <label   for="date_from"> </label>
+                    <br>   
+
+                    <button class="btn-lg btn-primary" type="submit">
+                        {{ trans('global.search') }}
+                    </button>
+                </div>
+            </div>
+          
+         </div>
+         
+         
+         
+          </div>
+   
+        </form>
+    
+    
+    
+    
+    
 
     <div class="card-body">
         <div class="table-responsive">
@@ -67,7 +157,8 @@
                                 {{ $caseParty->id ?? '' }}
                             </td>
                             <td>
-                                {{ $caseParty->case->case_ref_code ?? '' }}
+                   <a class="" href="{{ route('admin.case-infos.edit', $caseParty->case_id) }}">     {{ $caseParty->case->case_ref_code ?? '' }}
+                 </a>
                             </td>
                             <td>
                                 {{ $caseParty->party_type->party_type_desc_a ?? '' }}

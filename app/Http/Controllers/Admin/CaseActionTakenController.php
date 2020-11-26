@@ -15,13 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CaseActionTakenController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         abort_if(Gate::denies('case_action_taken_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $caseActionTakens = CaseActionTaken::all();
-
-        return view('admin.caseActionTakens.index', compact('caseActionTakens'));
+ return redirect()->route('admin.case-infos.edit',  $id)->withInput(['tab'=>'secondtab']);  
+      //  return view('admin.caseActionTakens.index', compact('caseActionTakens'));
     }
 
     public function create($id)
@@ -61,8 +61,8 @@ class CaseActionTakenController extends Controller
     public function update(UpdateCaseActionTakenRequest $request, CaseActionTaken $caseActionTaken)
     {
         $caseActionTaken->update($request->all());
-
-        return redirect()->route('admin.case-action-takens.index');
+ return redirect()->route('admin.case-infos.edit',  $request->input('case_id'))->withInput(['tab'=>'secondtab']);  
+      //  return redirect()->route('admin.case-action-takens.index');
     }
 
     public function show(CaseActionTaken $caseActionTaken)

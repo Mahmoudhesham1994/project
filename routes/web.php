@@ -14,7 +14,13 @@ Auth::routes(['register' => false]);
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    
+     Route::get('cases/case-count', 'CountController@dailyCase');
+     Route::get('cases/weeklyCase', 'CountController@weeklyCase');
+     Route::get('cases/monthlyCase', 'CountController@monthlyCase');
+    
+   Route::get('/', 'HomeController@index')->name('home');
+   // Route::get('/home', 'HomeController@index');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
     Route::resource('permissions', 'PermissionsController');
@@ -65,14 +71,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Case Parties
     Route::delete('case-parties/destroy', 'CasePartiesController@massDestroy')->name('case-parties.massDestroy');
     Route::resource('case-parties', 'CasePartiesController');
+    
+     Route::post('cases/case-parties_search', 'CasePartiesController@search');
 //Route::get('/case-parties-create/{id}', function ($id) {
 //     echo 'User '.$id;
 //});
-    Route::get('/case-parties-create/{id}', 'CasePartiesController@create');
+    Route::get('/case-parties-create/{id}', 'CasePartiesController@create_two');
+    Route::get('/case-parties-index/{id}', 'CasePartiesController@index_two');
+        Route::post('/case-parties-store_two', 'CasePartiesController@store_two');
+
     // Case Action Takens
     Route::delete('case-action-takens/destroy', 'CaseActionTakenController@massDestroy')->name('case-action-takens.massDestroy');
     Route::resource('case-action-takens', 'CaseActionTakenController');
     Route::get('/case-action-takens-create/{id}', 'CaseActionTakenController@create');
+    Route::get('/case-action-takens-index/{id}', 'CaseActionTakenController@index');
+
 
     
     
@@ -80,6 +93,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('case-notes/destroy', 'CaseNotesController@massDestroy')->name('case-notes.massDestroy');
     Route::resource('case-notes', 'CaseNotesController');
  Route::get('/case-notes-create/{id}', 'CaseNotesController@create');
+ Route::get('/case-notes-index/{id}', 'CaseNotesController@index');
     // Doc Types
     Route::delete('doc-types/destroy', 'DocTypeController@massDestroy')->name('doc-types.massDestroy');
     Route::resource('doc-types', 'DocTypeController');
@@ -89,6 +103,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('case-court-decisions', 'CaseCourtDecisionsController');
 
     Route::get('/case-court-decisions-create/{id}', 'CaseCourtDecisionsController@create');
+    Route::get('/case-court-decisions-index/{id}', 'CaseCourtDecisionsController@index');
     
     // Com Currencies
     Route::delete('com-currencies/destroy', 'ComCurrencyController@massDestroy')->name('com-currencies.massDestroy');
@@ -97,7 +112,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Case Payments
     Route::delete('case-payments/destroy', 'CasePaymentsController@massDestroy')->name('case-payments.massDestroy');
     Route::resource('case-payments', 'CasePaymentsController');
-    Route::get('/case-payments-create/{id}', 'CasePaymentsController@create');
+    Route::get('/case-payments-create/{id}', 'CasePaymentsController@create_two');
+    Route::get('/case-payments-index/{id}', 'CasePaymentsController@index_two');
+    Route::post('/case-payments-store_two', 'CasePaymentsController@store_two');
 
     
     
@@ -110,7 +127,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('case-documents/media', 'CaseDocumentsController@storeMedia')->name('case-documents.storeMedia');
     Route::post('case-documents/ckmedia', 'CaseDocumentsController@storeCKEditorImages')->name('case-documents.storeCKEditorImages');
     Route::resource('case-documents', 'CaseDocumentsController');
- Route::get('/case-documents-create/{id}', 'CaseDocumentsController@create');
+ Route::get('/case-documents-create/{id}', 'CaseDocumentsController@create_two');
+ Route::get('/case-documents-index/{id}', 'CaseDocumentsController@index_two');
+ Route::post('/case-documents-store_two', 'CaseDocumentsController@store_two');
+    
+
     // Out Documents
     Route::delete('out-documents/destroy', 'OutDocumentsController@massDestroy')->name('out-documents.massDestroy');
     Route::resource('out-documents', 'OutDocumentsController');

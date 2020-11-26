@@ -14,13 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CaseNotesController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         abort_if(Gate::denies('case_note_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $caseNotes = CaseNote::all();
+    return redirect()->route('admin.case-infos.edit',  $id)->withInput(['tab'=>'secondtab']);  
 
-        return view('admin.caseNotes.index', compact('caseNotes'));
+      //  return view('admin.caseNotes.index', compact('caseNotes'));
     }
 
     public function create($id)
@@ -56,8 +57,8 @@ class CaseNotesController extends Controller
     public function update(UpdateCaseNoteRequest $request, CaseNote $caseNote)
     {
         $caseNote->update($request->all());
-
-        return redirect()->route('admin.case-notes.index');
+ return redirect()->route('admin.case-infos.edit',  $request->input('case_id'))->withInput(['tab'=>'secondtab']);  
+        //return redirect()->route('admin.case-notes.index');
     }
 
     public function show(CaseNote $caseNote)

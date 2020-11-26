@@ -9,7 +9,8 @@
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.case-documents.index') }}">
+                 <a class="btn btn-default" href="/admin/case-documents-index/{{$caseDocument->case_id}}">
+<!--                <a class="btn btn-default" href="{{ route('admin.case-documents.index') }}">-->
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,7 +18,7 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.caseDocument.fields.id') }}
+                          {{ trans('cruds.caseDocument.fields.id') }}
                         </th>
                         <td>
                             {{ $caseDocument->id }}
@@ -101,7 +102,8 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.case-documents.index') }}">
+  <a class="btn btn-default" href="/admin/case-documents-index/{{$caseDocument->case_id}}">
+      <!--                <a class="btn btn-default" href="{{ route('admin.case-documents.index') }}">-->
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>

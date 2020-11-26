@@ -14,13 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CaseCourtDecisionsController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         abort_if(Gate::denies('case_court_decision_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $caseCourtDecisions = CaseCourtDecision::all();
-
-        return view('admin.caseCourtDecisions.index', compact('caseCourtDecisions'));
+ return redirect()->route('admin.case-infos.edit',  $id)->withInput(['tab'=>'secondtab']);  
+     //   return view('admin.caseCourtDecisions.index', compact('caseCourtDecisions'));
     }
 
     public function create($id)
@@ -55,8 +55,8 @@ class CaseCourtDecisionsController extends Controller
     public function update(UpdateCaseCourtDecisionRequest $request, CaseCourtDecision $caseCourtDecision)
     {
         $caseCourtDecision->update($request->all());
-
-        return redirect()->route('admin.case-court-decisions.index');
+ return redirect()->route('admin.case-infos.edit',  $request->input('case_id'))->withInput(['tab'=>'secondtab']);
+       // return redirect()->route('admin.case-court-decisions.index');
     }
 
     public function show(CaseCourtDecision $caseCourtDecision)

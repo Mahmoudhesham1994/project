@@ -22,16 +22,31 @@ class CaseDocumentsController extends Controller
 {
     use MediaUploadingTrait;
 
-    public function index()
+       public function index()
     {
+     
         abort_if(Gate::denies('case_document_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $caseDocuments = CaseDocument::all();
-
+       
+ 
         return view('admin.caseDocuments.index', compact('caseDocuments'));
     }
+    
+    
+    public function index_two($id)
+    {
+       // dd($id);
+        abort_if(Gate::denies('case_document_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-    public function create($id)
+        $caseDocuments = CaseDocument::all();
+       
+                     return redirect()->route('admin.case-infos.edit',  $id)->withInput(['tab'=>'secondtab']);  
+
+       // return view('admin.caseDocuments.index', compact('caseDocuments'));
+    }
+
+    public function create_two($id)
     {
         abort_if(Gate::denies('case_document_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -41,7 +56,16 @@ class CaseDocumentsController extends Controller
 
         return view('admin.caseDocuments.create', compact('id','cases', 'doc_types'));
     }
+ public function create()
+    {
+        abort_if(Gate::denies('case_document_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $cases = CaseInfo::all()->pluck('case_ref_code', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $doc_types = DocType::all()->pluck('doc_type_desc_a', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.caseDocuments.create_m', compact('cases', 'doc_types'));
+    }
     public function store(StoreCaseDocumentRequest $request)
     {
         $caseDocument = CaseDocument::create($request->all());
@@ -90,6 +114,39 @@ class CaseDocumentsController extends Controller
              return redirect()->route('admin.case-infos.edit',  $request->input('case_id'))->withInput(['tab'=>'secondtab']);  
 
     }
+    
+      public function store_two(StoreCaseDocumentRequest $request)
+    {
+        $caseDocument = CaseDocument::create($request->all());
+// Storage::disk('fileStore')->putFileAs('document', $file, $full_name);
+        
+    if (is_array($request->file('message_doc')) || is_object($request->file('message_doc'))){
+
+        foreach($request->file('message_doc') as $file)
+        {
+           $full_name = time().'.'.$file->getClientOriginalExtension();
+              
+ $file->move(public_path('uploads'), $full_name);
+    //  Storage::disk('fileStore')->putFileAs('document', $file, $full_name);        
+           // $media= new App\Models\Mediaa();   
+            $media = new Mediaa();
+
+ //print_r($media);
+            //$media->name = $num_file;
+            $media->name = $file;
+            $media->model_type ="App\CaseDocument";
+           // $media->model_id = $message->id;
+            $media->model_id = $caseDocument->id;
+            $media->collection_name = "message_doc";
+             $media->disk   = "public";
+             $media->file_name  = $full_name;
+             $media->save();
+         }}   
+         
+   return redirect()->route('admin.case-documents.index');
+          
+    }  
+    
 
     public function edit(CaseDocument $caseDocument)
     {
@@ -155,7 +212,10 @@ class CaseDocumentsController extends Controller
          }}     
         
 
-        return redirect()->route('admin.case-documents.index');
+    //    return redirect()->route('admin.case-documents.index');
+      //  dd($request->input('case_id'));
+                     return redirect()->route('admin.case-infos.edit',  $request->input('case_id'))->withInput(['tab'=>'secondtab']);  
+
     }
 
     public function show(CaseDocument $caseDocument)

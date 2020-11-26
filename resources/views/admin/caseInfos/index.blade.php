@@ -22,7 +22,8 @@
             <div class="col-4">
             <div class="form-group">
                 <label   for="date_to">{{ trans('cruds.caseInfo.fields.case_date') }}</label>
-                <input dir="ltr" class="form-control date {{ $errors->has('case_date') ? 'is-invalid' : '' }}" type="text" name="date_from" id="date_from"  value=" "  >
+<!--                <input dir="ltr" class="form-control date {{ $errors->has('case_date') ? 'is-invalid' : '' }}" type="date" name="date_from" id="date_from"  value=" "  >-->
+                <input dir="ltr" class="form-control   {{ $errors->has('case_date') ? 'is-invalid' : '' }}" type="date" name="date_from" id="date_from"  value=" "  >
                 @if($errors->has('date_to'))
                     <span class="text-danger">{{ $errors->first('arc_date') }}</span>
                 @endif
@@ -35,7 +36,8 @@
        
                 <div class="form-group">
                 <label   for="date_to">{{ trans('cruds.caseInfo.fields.case_date') }}</label>
-                <input    class="form-control date {{ $errors->has('case_date') ? 'is-invalid' : '' }}" type="text" name="date_to" id="date_to"  value=" "  >
+<!--                <input    class="form-control date {{ $errors->has('case_date') ? 'is-invalid' : '' }}" type="date" name="date_to" id="date_to"  value=" "  >-->
+                <input    class="form-control   {{ $errors->has('case_date') ? 'is-invalid' : '' }}" type="date" name="date_to" id="date_to"  value=" "  >
                 @if($errors->has('date_to'))
                     <span class="text-danger">{{ $errors->first('arc_date') }}</span>
                 @endif

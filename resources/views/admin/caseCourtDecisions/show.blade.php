@@ -9,7 +9,8 @@
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.case-court-decisions.index') }}">
+                <a class="btn btn-default" href="/admin/case-court-decisions-index/{{$caseCourtDecision->case_id}}">
+<!--                <a class="btn btn-default" href="{{ route('admin.case-court-decisions.index') }}">-->
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -74,7 +75,8 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.case-court-decisions.index') }}">
+                 <a class="btn btn-default" href="/admin/case-court-decisions-index/{{$caseCourtDecision->case_id}}">
+<!--                <a class="btn btn-default" href="{{ route('admin.case-court-decisions.index') }}">-->
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>

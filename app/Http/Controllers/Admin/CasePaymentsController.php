@@ -20,11 +20,20 @@ class CasePaymentsController extends Controller
         abort_if(Gate::denies('case_payment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $casePayments = CasePayment::all();
+         return view('admin.casePayments.index', compact('casePayments'));
+    }
+    
+    
+    public function index_two($id)
+    {
+        abort_if(Gate::denies('case_payment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.casePayments.index', compact('casePayments'));
+        $casePayments = CasePayment::all();
+ return redirect()->route('admin.case-infos.edit',  $id)->withInput(['tab'=>'secondtab']);  
+      //  return view('admin.casePayments.index', compact('casePayments'));
     }
 
-    public function create($id)
+    public function create_two($id)
     {
       //  dd($id);
         abort_if(Gate::denies('case_payment_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -35,6 +44,18 @@ class CasePaymentsController extends Controller
 
         return view('admin.casePayments.create', compact('id','cases', 'crncies'));
     }
+    
+     public function create()
+    {
+      //  dd($id);
+        abort_if(Gate::denies('case_payment_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $cases = CaseInfo::all()->pluck('case_ref_code', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $crncies = ComCurrency::all()->pluck('crncy_desc_a', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.casePayments.create_m', compact('cases', 'crncies'));
+    }
 
     public function store(StoreCasePaymentRequest $request)
     {
@@ -43,6 +64,14 @@ class CasePaymentsController extends Controller
        // return redirect()->route('admin.case-payments.index');
               return redirect()->route('admin.case-infos.edit',  $request->input('case_id'))->withInput(['tab'=>'secondtab']);  
 
+    }
+    
+     public function store_two(StoreCasePaymentRequest $request)
+    {
+        $casePayment = CasePayment::create($request->all());
+
+       return redirect()->route('admin.case-payments.index');
+ 
     }
 
     public function edit(CasePayment $casePayment)
@@ -61,8 +90,8 @@ class CasePaymentsController extends Controller
     public function update(UpdateCasePaymentRequest $request, CasePayment $casePayment)
     {
         $casePayment->update($request->all());
-
-        return redirect()->route('admin.case-payments.index');
+return redirect()->route('admin.case-infos.edit',  $request->input('case_id'))->withInput(['tab'=>'secondtab']);  
+       // return redirect()->route('admin.case-payments.index');
     }
 
     public function show(CasePayment $casePayment)

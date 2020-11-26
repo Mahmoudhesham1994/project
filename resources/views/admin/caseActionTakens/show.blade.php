@@ -9,7 +9,9 @@
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.case-action-takens.index') }}">
+                
+  <a class="btn btn-default" href="/admin/case-action-takens-index/{{$caseActionTaken->case_id}}">
+<!--                <a class="btn btn-default" href="{{ route('admin.case-action-takens.index') }}">-->
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -66,7 +68,9 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.case-action-takens.index') }}">
+                  <a class="btn btn-default" href="/admin/case-action-takens-index/{{$caseActionTaken->case_id}}">
+
+<!--                <a class="btn btn-default" href="{{ route('admin.case-action-takens.index') }}">-->
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
